@@ -1,0 +1,9 @@
+C:\Things\GoGame\bin\Debug\GoGame.exe.config
+C:\Things\GoGame\bin\Debug\GoGame.exe
+C:\Things\GoGame\bin\Debug\GoGame.pdb
+C:\Things\GoGame\obj\Debug\GoGame.csprojAssemblyReference.cache
+C:\Things\GoGame\obj\Debug\WindowsFormsApp2.Properties.Resources.resources
+C:\Things\GoGame\obj\Debug\GoGame.csproj.GenerateResource.cache
+C:\Things\GoGame\obj\Debug\GoGame.csproj.CoreCompileInputs.cache
+C:\Things\GoGame\obj\Debug\GoGame.exe
+C:\Things\GoGame\obj\Debug\GoGame.pdb
