@@ -1,10 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using WindowsFormsApp2.Domains;
-
-namespace WindowsFormsApp2
-{
-    public static class StatTable
+public static class StatTable
     {
         public static TableLayoutPanel CreateStatPanel(Game model)
         {
@@ -13,9 +10,9 @@ namespace WindowsFormsApp2
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 40));
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 40));
-            table.Controls.Add(CreatePassButton(model));
-            
+            table.Controls.Add(CreatePassButton(model), 0, 0);
             table.Controls.Add(CreateScorePanel(model), 0, 2);
+            table.Controls.Add(new TableLayoutPanel(), 0, 2);
             
             return table;
         }
@@ -25,7 +22,8 @@ namespace WindowsFormsApp2
             var passButton = new Button
             {
                 Text = $@"Player {(model.IsBlackPlayerCurrent ? "Black" : "White")} current. Want to pass?",
-                Dock = DockStyle.Fill
+                Dock = DockStyle.Fill,
+                Font = new Font("Tahoma", 18, FontStyle.Regular)
             };
             passButton.Click += (sender, args) => model.Pass();
             model.CurrentPlayerChanged += () => passButton.Text 
@@ -39,11 +37,14 @@ namespace WindowsFormsApp2
             scoreTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
             scoreTable.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
             scoreTable.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
-            scoreTable.Controls.Add(new Label
+            var scoreLabel = new Label
             {
-                Text = "Score", 
-                TextAlign = ContentAlignment.MiddleCenter
-            }, 0, 0);
+                Text = "Score",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill,
+                Font = new Font("Tahoma", 20, FontStyle.Regular)
+            };
+            scoreTable.Controls.Add(scoreLabel, 0, 0);
             
             var inScore = new TableLayoutPanel {Dock = DockStyle.Fill};
             inScore.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
@@ -65,7 +66,8 @@ namespace WindowsFormsApp2
                 BackColor = Color.Black,
                 Dock = DockStyle.Fill,
                 ForeColor = Color.White,
-                TextAlign = ContentAlignment.MiddleCenter
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Tahoma", 18, FontStyle.Regular)
             };
 
             model.ScoreChanged += color =>
@@ -84,7 +86,8 @@ namespace WindowsFormsApp2
                 Text = $@"White score {model.Score[BoardColor.White]}",
                 BackColor = Color.Wheat,
                 Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleCenter
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Tahoma", 18, FontStyle.Regular)
             };
                         
             model.ScoreChanged += color =>
@@ -96,4 +99,3 @@ namespace WindowsFormsApp2
             return whiteLabel;
         }
     }
-}

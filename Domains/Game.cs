@@ -14,6 +14,7 @@ namespace WindowsFormsApp2.Domains
 
         public event Action CurrentPlayerChanged;
         public event Action<BoardColor> ScoreChanged;
+        public event Action<int, int, BoardColor> GameEnded;
         
         
         public bool IsBlackPlayerCurrent = true;
@@ -34,7 +35,9 @@ namespace WindowsFormsApp2.Domains
             if (scoreToAdd == null)
                 return;
             
-            ChangeScore(currentPlayerColor, scoreToAdd.Value);
+            if (scoreToAdd != 0)
+                ChangeScore(currentPlayerColor, scoreToAdd.Value);
+            
             ChangeCurrentPlayer();
             IsPlayerBeforePassed = false;
         }
@@ -70,9 +73,12 @@ namespace WindowsFormsApp2.Domains
             Score[BoardColor.White] += scoreToAdd[BoardColor.White];
         }
 
-        public BoardColor Winner()
+        public void EndGameInvoke()
         {
-            return Score[BoardColor.Black] > Score[BoardColor.White] ? BoardColor.Black : BoardColor.White;
+            var winner = Score[BoardColor.Black] > Score[BoardColor.White] 
+                ? BoardColor.Black : BoardColor.White;
+            
+            GameEnded?.Invoke(Score[BoardColor.Black], Score[BoardColor.White], winner);
         }
     }
 }
