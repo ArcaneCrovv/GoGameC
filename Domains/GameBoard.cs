@@ -18,7 +18,7 @@ namespace WindowsFormsApp2.Domains
         public int Size { get; set; }
         public BoardColor[,] Board { get; set; }
         
-        public event Action<int, int, BoardColor> StateChanged;
+        public event Action<int, int, BoardColor> BoardStateChanged;
 
         public Dictionary<BoardColor, int> CountTerritories()
         {
@@ -192,8 +192,8 @@ namespace WindowsFormsApp2.Domains
         public void ChangeColorOn(Point point, BoardColor color)
         {
             Board[point.X, point.Y] = color;
-            if (StateChanged != null) 
-                StateChanged(point.X, point.Y, color);
+            if (BoardStateChanged != null) 
+                BoardStateChanged(point.X, point.Y, color);
         }
         
         public bool IsPointInBordBounds(Point point)

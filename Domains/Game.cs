@@ -11,6 +11,10 @@ namespace WindowsFormsApp2.Domains
             Board = new GameBoard(boardSize);
             Score[BoardColor.White] = comi;
         }
+
+        public event Action CurrentPlayerChanged;
+        public event Action<BoardColor> ScoreChanged;
+        
         
         public bool IsBlackPlayerCurrent = true;
         public Dictionary<BoardColor, int> Score = new Dictionary<BoardColor, int>
@@ -30,9 +34,21 @@ namespace WindowsFormsApp2.Domains
             if (scoreToAdd == null)
                 return;
             
-            Score[currentPlayerColor] += scoreToAdd.Value;
-            IsBlackPlayerCurrent = !IsBlackPlayerCurrent;
+            ChangeScore(currentPlayerColor, scoreToAdd.Value);
+            ChangeCurrentPlayer();
             IsPlayerBeforePassed = false;
+        }
+
+        private void ChangeScore(BoardColor addScoreColor, int scoreToAdd)
+        {
+            Score[addScoreColor] += scoreToAdd;
+            ScoreChanged?.Invoke(addScoreColor);
+        }
+
+        private void ChangeCurrentPlayer()
+        {
+            IsBlackPlayerCurrent = !IsBlackPlayerCurrent;
+            CurrentPlayerChanged?.Invoke();
         }
 
         public void Pass()
@@ -44,7 +60,7 @@ namespace WindowsFormsApp2.Domains
             }
 
             IsPlayerBeforePassed = true;
-            IsBlackPlayerCurrent = !IsBlackPlayerCurrent;
+            ChangeCurrentPlayer();
         }
 
         private void EndGame()
