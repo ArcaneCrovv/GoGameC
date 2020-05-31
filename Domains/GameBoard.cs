@@ -200,5 +200,12 @@ namespace WindowsFormsApp2.Domains
         {
             return Size > point.X && point.X >= 0 && Size > point.Y && point.Y >= 0;
         }
+
+        public void EmptyBoard()
+        {
+            for (var i = 0; i < Size; i++)
+            for (var j = 0; j < Size; j++)
+                ChangeColorOn(i, j, BoardColor.Liberty);
+        }
     }
 }

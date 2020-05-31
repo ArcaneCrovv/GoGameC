@@ -10,17 +10,6 @@ using WindowsFormsApp2;
 using WindowsFormsApp2.Domains;
 public class MyForm : Form
 {
-    public TableLayoutPanel CreateMainTable()
-    {
-        var mainTable = new TableLayoutPanel();
-        mainTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-        mainTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70));
-        mainTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
-        mainTable.Dock = DockStyle.Fill;
-
-        return mainTable;
-    }
-
     public MyForm(Game model)
     {
         var mainTable = CreateMainTable();
@@ -32,5 +21,32 @@ public class MyForm : Form
         mainTable.Controls.Add(statTable, 1, 0);
 
         Controls.Add(mainTable);
+
+        model.GameEnded += GameEndMessage;
+    }
+
+    private TableLayoutPanel CreateMainTable()
+    {
+        var mainTable = new TableLayoutPanel();
+        mainTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+        mainTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70));
+        mainTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
+        mainTable.Dock = DockStyle.Fill;
+
+        return mainTable;
+    }
+
+    private void GameEndMessage(int blackScore, int whiteScore, BoardColor winnerColor)
+    {
+        var winner = winnerColor == BoardColor.Black ? "Черный" : "Белый";
+        var message = $"Игра окончена со счетом:\n" +
+                      $"Черные - {blackScore}\n" +
+                      $"Белые - {whiteScore}\n" +
+                      $"Победитель - {winner}\n" + 
+                      "Еще партию?";
+        var caption = "Игра окончена.";
+        var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        if (result == DialogResult.No)
+            Close();
     }
 }

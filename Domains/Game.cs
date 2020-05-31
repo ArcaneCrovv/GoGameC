@@ -24,7 +24,7 @@ namespace WindowsFormsApp2.Domains
             {BoardColor.White, 0}
         };
         public GameBoard Board;
-        public bool IsPlayerBeforePassed;
+        private bool _isPlayerBeforePassed;
         public GamePhase GamePhase = GamePhase.Game;
 
         public void SetStone (Point coordinates)
@@ -39,7 +39,7 @@ namespace WindowsFormsApp2.Domains
                 ChangeScore(currentPlayerColor, scoreToAdd.Value);
             
             ChangeCurrentPlayer();
-            IsPlayerBeforePassed = false;
+            _isPlayerBeforePassed = false;
         }
 
         private void ChangeScore(BoardColor addScoreColor, int scoreToAdd)
@@ -56,13 +56,14 @@ namespace WindowsFormsApp2.Domains
 
         public void Pass()
         {
-            if (IsPlayerBeforePassed)
+            if (_isPlayerBeforePassed)
             {
                 GamePhase = GamePhase.GameEnded;
                 EndGame();
+                return;
             }
 
-            IsPlayerBeforePassed = true;
+            _isPlayerBeforePassed = true;
             ChangeCurrentPlayer();
         }
 
@@ -71,14 +72,32 @@ namespace WindowsFormsApp2.Domains
             var scoreToAdd = Board.CountTerritories();
             Score[BoardColor.Black] += scoreToAdd[BoardColor.Black];
             Score[BoardColor.White] += scoreToAdd[BoardColor.White];
+            EndGameInvoke();
+            ResetGame();
         }
 
-        public void EndGameInvoke()
+        private void EndGameInvoke()
         {
             var winner = Score[BoardColor.Black] > Score[BoardColor.White] 
                 ? BoardColor.Black : BoardColor.White;
             
             GameEnded?.Invoke(Score[BoardColor.Black], Score[BoardColor.White], winner);
+        }
+
+        private void ResetGame()
+        {
+            IsBlackPlayerCurrent = true;
+            _isPlayerBeforePassed = false;
+            CurrentPlayerChanged?.Invoke();
+            
+            Board.EmptyBoard();
+            Score = new Dictionary<BoardColor, int>
+            {
+                {BoardColor.Black, 0},
+                {BoardColor.White, 0}
+            };
+            ScoreChanged?.Invoke(BoardColor.Black);
+            ScoreChanged?.Invoke(BoardColor.White);
         }
     }
 }
