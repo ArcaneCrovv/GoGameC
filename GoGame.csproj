@@ -77,5 +77,14 @@
     <ItemGroup>
         <None Include="App.config" />
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="Colors\black.bmp" />
+      <Content Include="Colors\Goban_9x9.bmp" />
+      <Content Include="Colors\liber.bmp" />
+      <Content Include="Colors\nothing.bmp" />
+      <Content Include="Colors\white.bmp" />
+      <Content Include="Colors\Без названия (5).bmp" />
+      <Content Include="Resources\Goban_9x9.bmp" />
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

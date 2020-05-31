@@ -28,8 +28,8 @@ namespace WindowsFormsApp2.Domains
             var scoreToAdd = Board.SetStoneNullIfCant(coordinates, currentPlayerColor);
             
             if (scoreToAdd == null)
-                throw new ArgumentException();
-
+                return;
+            
             Score[currentPlayerColor] += scoreToAdd.Value;
             IsBlackPlayerCurrent = !IsBlackPlayerCurrent;
             IsPlayerBeforePassed = false;
