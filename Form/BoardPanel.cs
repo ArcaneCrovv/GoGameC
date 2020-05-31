@@ -13,13 +13,6 @@ public class BoardPanel
         {BoardColor.White, Image.FromFile("C:\\Things\\GoGame\\Colors\\white.bmp")}
     };
     
-    private static readonly Dictionary<BoardColor, Image> MazeImages2 = new Dictionary<BoardColor, Image>
-    {
-        {BoardColor.Liberty, Image.FromFile("C:\\Things\\GoGame\\Colors\\liber.bmp")},
-        {BoardColor.Black, Image.FromFile("C:\\Things\\GoGame\\Colors\\black.bmp")},
-        {BoardColor.White, Image.FromFile("C:\\Things\\GoGame\\Colors\\white.bmp")}
-    };
-    
     public static TableLayoutPanel CreateGameBoardPanel(Game model)
     {
         
