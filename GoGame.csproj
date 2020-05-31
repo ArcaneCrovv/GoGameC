@@ -86,7 +86,10 @@
       <Content Include="Colors\nothing.bmp" />
       <Content Include="Colors\white.bmp" />
       <Content Include="Colors\Без названия (5).bmp" />
+      <Content Include="Resources\black.bmp" />
       <Content Include="Resources\Goban_9x9.bmp" />
+      <Content Include="Resources\liber.bmp" />
+      <Content Include="Resources\white.bmp" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

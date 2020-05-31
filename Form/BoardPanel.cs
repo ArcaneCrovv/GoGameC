@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using WindowsFormsApp2.Domains;
+using WindowsFormsApp2.Properties;
 
 public class BoardPanel
 {
@@ -12,8 +13,16 @@ public class BoardPanel
         {BoardColor.White, Image.FromFile("C:\\Things\\GoGame\\Colors\\white.bmp")}
     };
     
+    private static readonly Dictionary<BoardColor, Image> MazeImages2 = new Dictionary<BoardColor, Image>
+    {
+        {BoardColor.Liberty, Image.FromFile("C:\\Things\\GoGame\\Colors\\liber.bmp")},
+        {BoardColor.Black, Image.FromFile("C:\\Things\\GoGame\\Colors\\black.bmp")},
+        {BoardColor.White, Image.FromFile("C:\\Things\\GoGame\\Colors\\white.bmp")}
+    };
+    
     public static TableLayoutPanel CreateGameBoardPanel(Game model)
     {
+        
         var table = new TableLayoutPanel {Dock = DockStyle.Fill};
 
         for (var i = 0; i < model.Board.Size; i++)
